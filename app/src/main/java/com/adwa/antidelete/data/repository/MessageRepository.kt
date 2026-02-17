@@ -1,8 +1,8 @@
-package com.private.antideletewa.data.repository
+package com.adwa.antidelete.data.repository
 
 import androidx.lifecycle.LiveData
-import com.private.antideletewa.data.dao.MessageDao
-import com.private.antideletewa.data.model.MessageEntity
+import com.adwa.antidelete.data.dao.MessageDao
+import com.adwa.antidelete.data.model.MessageEntity
 
 /**
  * Repository untuk mengelola operasi data pesan

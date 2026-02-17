@@ -1,11 +1,11 @@
-package com.private.antideletewa.data.database
+package com.adwa.antidelete.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.private.antideletewa.data.dao.MessageDao
-import com.private.antideletewa.data.model.MessageEntity
+import com.adwa.antidelete.data.dao.MessageDao
+import com.adwa.antidelete.data.model.MessageEntity
 
 /**
  * Room Database untuk menyimpan pesan WhatsApp

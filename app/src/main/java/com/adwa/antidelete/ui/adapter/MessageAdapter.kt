@@ -1,4 +1,4 @@
-package com.private.antideletewa.ui.adapter
+package com.adwa.antidelete.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.private.antideletewa.R
-import com.private.antideletewa.data.model.MessageEntity
+import com.adwa.antidelete.R
+import com.adwa.antidelete.data.model.MessageEntity
 import java.text.SimpleDateFormat
 import java.util.*
 

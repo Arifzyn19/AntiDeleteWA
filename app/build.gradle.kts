@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.private.antideletewa"
+    namespace = "com.adwa.antidelete"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.private.antideletewa"
+        applicationId = "com.adwa.antidelete"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

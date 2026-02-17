@@ -1,4 +1,4 @@
-package com.private.antideletewa.ui
+package com.adwa.antidelete.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +12,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.private.antideletewa.R
-import com.private.antideletewa.databinding.ActivityMainBinding
-import com.private.antideletewa.ui.adapter.MessageAdapter
-import com.private.antideletewa.ui.viewmodel.MainViewModel
+import com.adwa.antidelete.R
+import com.adwa.antidelete.databinding.ActivityMainBinding
+import com.adwa.antidelete.ui.adapter.MessageAdapter
+import com.adwa.antidelete.ui.viewmodel.MainViewModel
 
 /**
  * MainActivity - UI utama aplikasi

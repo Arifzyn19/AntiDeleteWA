@@ -1,12 +1,12 @@
-package com.private.antideletewa.ui.viewmodel
+package com.adwa.antidelete.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.private.antideletewa.data.database.AppDatabase
-import com.private.antideletewa.data.model.MessageEntity
-import com.private.antideletewa.data.repository.MessageRepository
+import com.adwa.antidelete.data.database.AppDatabase
+import com.adwa.antidelete.data.model.MessageEntity
+import com.adwa.antidelete.data.repository.MessageRepository
 import kotlinx.coroutines.launch
 
 /**

@@ -1,4 +1,4 @@
-package com.private.antideletewa.data.model
+package com.adwa.antidelete.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

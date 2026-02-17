@@ -1,8 +1,8 @@
-package com.private.antideletewa.data.dao
+package com.adwa.antidelete.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.private.antideletewa.data.model.MessageEntity
+import com.adwa.antidelete.data.model.MessageEntity
 
 /**
  * Data Access Object untuk operasi database pesan

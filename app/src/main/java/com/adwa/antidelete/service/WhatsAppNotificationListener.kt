@@ -1,12 +1,12 @@
-package com.private.antideletewa.service
+package com.adwa.antidelete.service
 
 import android.app.Notification
 import android.os.Bundle
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.private.antideletewa.data.database.AppDatabase
-import com.private.antideletewa.data.model.MessageEntity
+import com.adwa.antidelete.data.database.AppDatabase
+import com.adwa.antidelete.data.model.MessageEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
