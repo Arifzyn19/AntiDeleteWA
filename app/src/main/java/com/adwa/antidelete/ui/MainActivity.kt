@@ -76,11 +76,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.allMessages.observe(this) { messages ->
             if (messages.isEmpty()) {
                 // Tampilkan empty state
-                binding.emptyStateLayout.visibility = View.VISIBLE
+                // Gunakan .root karena emptyStateLayout adalah <include> tag
+                binding.emptyStateLayout.root.visibility = View.VISIBLE
                 binding.recyclerView.visibility = View.GONE
             } else {
                 // Tampilkan RecyclerView
-                binding.emptyStateLayout.visibility = View.GONE
+                binding.emptyStateLayout.root.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
                 adapter.submitList(messages)
             }
@@ -105,8 +106,12 @@ class MainActivity : AppCompatActivity() {
     private fun showNotificationPermissionDialog() {
         AlertDialog.Builder(this)
             .setTitle("Notification Access Required")
-            .setMessage("Aplikasi ini memerlukan akses notifikasi untuk menyimpan pesan WhatsApp.\n\n" +
-                    "Silakan aktifkan 'Anti Delete WA' di pengaturan Notification Access.")
+            .setMessage(
+                "Aplikasi ini memerlukan akses notifikasi untuk menyimpan pesan dari:\n\n" +
+                "✅ WhatsApp\n" +
+                "✅ WhatsApp Business\n\n" +
+                "Silakan aktifkan 'Anti Delete WA' di pengaturan Notification Access."
+            )
             .setPositiveButton("Open Settings") { _, _ ->
                 openNotificationSettings()
             }

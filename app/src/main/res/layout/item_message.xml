@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     app:cardBackgroundColor="@color/background_card"
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
@@ -17,53 +17,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
 
-        <!-- Nama Kontak (Sender) -->
-        <TextView
-            android:id="@+id/senderText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/timeText"
-            tools:text="John Doe" />
-
-        <!-- Waktu pesan -->
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_tertiary"
-            android:textSize="11sp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/senderText"
-            app:layout_constraintBottom_toBottomOf="@id/senderText"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="12/01/2025 14:30" />
-
-        <!-- Isi pesan -->
-        <TextView
-            android:id="@+id/messageText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            android:lineSpacingExtra="2dp"
-            android:maxLines="3"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/senderText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="This is a sample WhatsApp message that was captured from notification" />
-
-        <!-- Indikator WhatsApp (ikon kecil) -->
+        <!-- Green accent bar on left -->
         <View
             android:id="@+id/indicatorBar"
             android:layout_width="3dp"
@@ -72,6 +31,73 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Sender name -->
+        <TextView
+            android:id="@+id/senderText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/indicatorBar"
+            app:layout_constraintEnd_toStartOf="@id/timeText"
+            tools:text="John Doe" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/text_tertiary"
+            android:textSize="11sp"
+            app:layout_constraintTop_toTopOf="@id/senderText"
+            app:layout_constraintBottom_toBottomOf="@id/senderText"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="12/01 14:30" />
+
+        <!-- Message text -->
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/senderText"
+            app:layout_constraintStart_toEndOf="@id/indicatorBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Hey, are you available tonight?" />
+
+        <!-- WA / WA Business badge -->
+        <TextView
+            android:id="@+id/badgeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:background="@drawable/badge_background"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/messageText"
+            app:layout_constraintStart_toEndOf="@id/indicatorBar"
+            tools:text="WA Business"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

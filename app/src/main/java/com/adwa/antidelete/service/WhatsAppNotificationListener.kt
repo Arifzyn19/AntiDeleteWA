@@ -13,121 +13,95 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 /**
- * Service untuk menangkap notifikasi WhatsApp
+ * Service untuk menangkap notifikasi WhatsApp & WhatsApp Business
  * HANYA menyimpan PRIVATE CHAT, GROUP CHAT diabaikan
  */
 class WhatsAppNotificationListener : NotificationListenerService() {
-    
-    private val TAG = "WANotificationListener"
-    private val WHATSAPP_PACKAGE = "com.whatsapp"
-    
-    // Coroutine scope untuk operasi database
+
+    private val TAG = "WANotifListener"
+
+    // Daftar package yang didukung
+    private val SUPPORTED_PACKAGES = setOf(
+        "com.whatsapp",       // WhatsApp biasa
+        "com.whatsapp.w4b"   // WhatsApp Business
+    )
+
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    
     private lateinit var database: AppDatabase
-    
+
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.getDatabase(applicationContext)
-        Log.d(TAG, "Service created")
+        Log.d(TAG, "Service started – monitoring: $SUPPORTED_PACKAGES")
     }
-    
+
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
-        
-        sbn?.let { notification ->
-            // Filter hanya notifikasi dari WhatsApp
-            if (notification.packageName == WHATSAPP_PACKAGE) {
-                processWhatsAppNotification(notification)
+        sbn?.let {
+            if (it.packageName in SUPPORTED_PACKAGES) {
+                processNotification(it)
             }
         }
     }
-    
-    /**
-     * Proses notifikasi WhatsApp
-     */
-    private fun processWhatsAppNotification(sbn: StatusBarNotification) {
+
+    private fun processNotification(sbn: StatusBarNotification) {
         try {
-            val notification = sbn.notification
-            val extras: Bundle? = notification.extras
-            
-            if (extras != null) {
-                // Ambil title (nama kontak) dan text (isi pesan)
-                val title = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()
-                val text = extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()
-                
-                // Cek apakah ini group conversation
-                val isGroup = extras.getBoolean("android.isGroupConversation", false)
-                
-                Log.d(TAG, "Title: $title, Text: $text, IsGroup: $isGroup")
-                
-                // Validasi data
-                if (title.isNullOrEmpty() || text.isNullOrEmpty()) {
-                    Log.d(TAG, "Title atau text kosong, skip")
-                    return
-                }
-                
-                // FILTER 1: Skip jika group conversation
-                if (isGroup) {
-                    Log.d(TAG, "Group conversation detected, skip")
-                    return
-                }
-                
-                // FILTER 2: Skip jika text mengandung ":" (indikasi group message)
-                // Format group: "Nama: pesan"
-                if (text.contains(":")) {
-                    Log.d(TAG, "Text contains ':', kemungkinan group message, skip")
-                    return
-                }
-                
-                // FILTER 3: Skip jika pesan mengandung kata "deleted" atau "dihapus"
-                val lowerText = text.lowercase()
-                if (lowerText.contains("deleted") || 
-                    lowerText.contains("dihapus") ||
-                    lowerText.contains("this message was deleted") ||
-                    lowerText.contains("pesan ini telah dihapus")) {
-                    Log.d(TAG, "Message contains delete indicator, skip")
-                    return
-                }
-                
-                // FILTER 4: Skip notifikasi sistem WhatsApp
-                if (title.contains("WhatsApp") && 
-                    (text.contains("messages") || text.contains("pesan"))) {
-                    Log.d(TAG, "System notification, skip")
-                    return
-                }
-                
-                // Jika lolos semua filter, simpan ke database
-                saveMessage(title, text)
+            val extras: Bundle? = sbn.notification.extras ?: return
+
+            val title  = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()
+            val text   = extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()
+            val isGroup = extras.getBoolean("android.isGroupConversation", false)
+
+            Log.d(TAG, "[${sbn.packageName}] title=$title | text=$text | group=$isGroup")
+
+            if (title.isNullOrBlank() || text.isNullOrBlank()) return
+
+            // FILTER 1: Group conversation flag
+            if (isGroup) { Log.d(TAG, "SKIP group flag"); return }
+
+            // FILTER 2: "Nama: pesan" format → group / broadcast
+            if (text.contains(":")) { Log.d(TAG, "SKIP colon"); return }
+
+            // FILTER 3: Delete indicators
+            val lower = text.lowercase()
+            if (lower.contains("this message was deleted") ||
+                lower.contains("deleted this message") ||
+                lower.contains("pesan ini telah dihapus") ||
+                lower.contains("menghapus pesan ini")) {
+                Log.d(TAG, "SKIP deleted"); return
             }
-            
+
+            // FILTER 4: Summary notification ("5 new messages")
+            if (text.matches(Regex("\\d+ (new messages?|pesan baru).*", RegexOption.IGNORE_CASE))) {
+                Log.d(TAG, "SKIP summary"); return
+            }
+
+            // Lolos semua filter → simpan
+            saveMessage(title, text, sbn.packageName)
+
         } catch (e: Exception) {
-            Log.e(TAG, "Error processing notification: ${e.message}", e)
+            Log.e(TAG, "Process error: ${e.message}", e)
         }
     }
-    
-    /**
-     * Simpan pesan ke database
-     */
-    private fun saveMessage(sender: String, message: String) {
+
+    private fun saveMessage(sender: String, message: String, packageName: String) {
         serviceScope.launch {
             try {
-                val messageEntity = MessageEntity(
-                    sender = sender,
-                    message = message,
-                    timestamp = System.currentTimeMillis(),
-                    packageName = WHATSAPP_PACKAGE
+                database.messageDao().insertMessage(
+                    MessageEntity(
+                        sender      = sender,
+                        message     = message,
+                        timestamp   = System.currentTimeMillis(),
+                        packageName = packageName
+                    )
                 )
-                
-                database.messageDao().insertMessage(messageEntity)
-                Log.d(TAG, "Message saved: $sender - $message")
-                
+                Log.d(TAG, "SAVED [$packageName] $sender: $message")
             } catch (e: Exception) {
-                Log.e(TAG, "Error saving message: ${e.message}", e)
+                Log.e(TAG, "DB error: ${e.message}", e)
             }
         }
     }
-    
+
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "Service destroyed")
