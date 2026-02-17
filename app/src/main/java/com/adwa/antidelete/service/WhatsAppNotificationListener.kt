@@ -1,7 +1,6 @@
 package com.adwa.antidelete.service
 
 import android.app.Notification
-import android.os.Bundle
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
@@ -46,10 +45,11 @@ class WhatsAppNotificationListener : NotificationListenerService() {
 
     private fun processNotification(sbn: StatusBarNotification) {
         try {
-            val extras: Bundle? = sbn.notification.extras ?: return
+            // Smart-cast: setelah ?: return, extras dijamin non-null oleh Kotlin
+            val extras = sbn.notification.extras ?: return
 
-            val title  = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()
-            val text   = extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()
+            val title   = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()
+            val text    = extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()
             val isGroup = extras.getBoolean("android.isGroupConversation", false)
 
             Log.d(TAG, "[${sbn.packageName}] title=$title | text=$text | group=$isGroup")
