@@ -1,0 +1,186 @@
+PROJECT STRUCTURE - Anti Delete WhatsApp
+=========================================
+
+AntiDeleteWA/
+│
+├── 📄 README.md                          # Overview & dokumentasi utama
+├── 📄 QUICK_START.md                     # Panduan cepat 5 menit
+├── 📄 BUILD_INSTRUCTIONS.md              # Panduan build detail
+├── 📄 ARCHITECTURE.md                    # Dokumentasi arsitektur teknis
+├── 📄 .gitignore                         # Git ignore rules
+│
+├── ⚙️ build.gradle.kts                   # Project-level Gradle config
+├── ⚙️ settings.gradle.kts                # Gradle settings
+├── ⚙️ gradle.properties                  # Gradle properties
+│
+└── 📁 app/
+    │
+    ├── ⚙️ build.gradle.kts               # Module-level Gradle config
+    ├── 📄 proguard-rules.pro             # ProGuard rules
+    │
+    └── 📁 src/
+        └── 📁 main/
+            │
+            ├── 📄 AndroidManifest.xml    # App manifest & permissions
+            │
+            ├── 📁 java/com/private/antideletewa/
+            │   │
+            │   ├── 📁 data/              # Data Layer
+            │   │   │
+            │   │   ├── 📁 model/
+            │   │   │   └── 📄 MessageEntity.kt        # Room entity
+            │   │   │
+            │   │   ├── 📁 dao/
+            │   │   │   └── 📄 MessageDao.kt           # Database operations
+            │   │   │
+            │   │   ├── 📁 database/
+            │   │   │   └── 📄 AppDatabase.kt          # Room database
+            │   │   │
+            │   │   └── 📁 repository/
+            │   │       └── 📄 MessageRepository.kt    # Repository pattern
+            │   │
+            │   ├── 📁 service/           # Service Layer
+            │   │   └── 📄 WhatsAppNotificationListener.kt  # Core service
+            │   │
+            │   └── 📁 ui/                # Presentation Layer
+            │       │
+            │       ├── 📄 MainActivity.kt             # Main UI controller
+            │       │
+            │       ├── 📁 adapter/
+            │       │   └── 📄 MessageAdapter.kt       # RecyclerView adapter
+            │       │
+            │       └── 📁 viewmodel/
+            │           └── 📄 MainViewModel.kt        # UI state management
+            │
+            └── 📁 res/                   # Resources
+                │
+                ├── 📁 drawable/          # Vector icons
+                │   ├── 🎨 ic_empty_message.xml        # Empty state icon
+                │   ├── 🎨 ic_delete.xml               # Delete icon
+                │   └── 🎨 ic_settings.xml             # Settings icon
+                │
+                ├── 📁 layout/            # XML layouts
+                │   ├── 📱 activity_main.xml           # Main screen layout
+                │   ├── 📱 item_message.xml            # Message list item
+                │   └── 📱 empty_state.xml             # Empty state view
+                │
+                ├── 📁 menu/              # Menu resources
+                │   └── 🍔 main_menu.xml               # Toolbar menu
+                │
+                └── 📁 values/            # Values resources
+                    ├── 🎨 colors.xml                  # Color palette (dark theme)
+                    ├── 🎨 themes.xml                  # App theme (dark)
+                    ├── 📝 strings.xml                 # String resources
+                    └── 📏 dimens.xml                  # Dimension values
+
+
+FILE COUNT SUMMARY
+==================
+
+Kotlin Files:        9 files
+  - Entities:        1 (MessageEntity.kt)
+  - DAOs:            1 (MessageDao.kt)
+  - Database:        1 (AppDatabase.kt)
+  - Repository:      1 (MessageRepository.kt)
+  - Service:         1 (WhatsAppNotificationListener.kt)
+  - UI:              3 (MainActivity, Adapter, ViewModel)
+  - ViewModel:       1 (MainViewModel.kt)
+
+XML Files:          11 files
+  - Manifest:        1 (AndroidManifest.xml)
+  - Layouts:         3 (activity_main, item_message, empty_state)
+  - Drawables:       3 (icons)
+  - Values:          4 (colors, themes, strings, dimens)
+  - Menu:            1 (main_menu.xml)
+
+Config Files:        5 files
+  - Gradle:          3 (.kts files)
+  - ProGuard:        1 (.pro file)
+  - Properties:      1 (gradle.properties)
+
+Documentation:       4 files
+  - README.md
+  - QUICK_START.md
+  - BUILD_INSTRUCTIONS.md
+  - ARCHITECTURE.md
+
+Total Files:        30 files
+
+
+KEY COMPONENTS
+==============
+
+🔵 CORE SERVICE
+   └─ WhatsAppNotificationListener.kt
+      • Captures WhatsApp notifications
+      • Filters group chats
+      • Saves to database
+
+🟢 DATABASE (Room)
+   ├─ MessageEntity.kt        (Entity definition)
+   ├─ MessageDao.kt           (Database queries)
+   ├─ AppDatabase.kt          (Database instance)
+   └─ MessageRepository.kt    (Data abstraction)
+
+🟣 UI LAYER (MVVM)
+   ├─ MainActivity.kt         (View)
+   ├─ MainViewModel.kt        (ViewModel)
+   └─ MessageAdapter.kt       (RecyclerView)
+
+🎨 UI RESOURCES
+   ├─ colors.xml              (Dark theme colors)
+   ├─ themes.xml              (Material theme)
+   └─ layouts/                (3 XML layouts)
+
+
+ARCHITECTURE PATTERN
+====================
+
+Service (Background)
+      ↓
+   Database
+      ↓
+  Repository
+      ↓
+  ViewModel
+      ↓
+   Activity
+      ↓
+  RecyclerView
+
+
+BUILD OUTPUT
+============
+
+Debug APK will be generated at:
+app/build/outputs/apk/debug/app-debug.apk
+
+APK Details:
+  - Package: com.private.antideletewa
+  - Min SDK: 26 (Android 8.0)
+  - Target SDK: 34 (Android 14)
+  - Size: ~5-8 MB
+
+
+GETTING STARTED
+===============
+
+1. Open in Android Studio
+2. Sync Gradle
+3. Build APK (Shift + F10)
+4. Install to device
+5. Enable notification access
+
+For detailed instructions, see BUILD_INSTRUCTIONS.md
+
+
+NOTES
+=====
+
+• All files use UTF-8 encoding
+• Kotlin version: 1.9.20
+• Gradle version: 8.2.0
+• Architecture: MVVM + Repository Pattern
+• Database: Room (SQLite)
+• UI: XML with Material Design
+• Theme: Dark mode only

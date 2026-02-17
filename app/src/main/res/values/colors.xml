@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors - Hijau Solid -->
+    <color name="primary_green">#1DB954</color>
+    <color name="primary_green_dark">#169B45</color>
+    <color name="primary_green_light">#25D366</color>
+    
+    <!-- Background Colors - Dark Theme -->
+    <color name="background_dark">#000000</color>
+    <color name="background_dark_secondary">#121212</color>
+    <color name="background_card">#1E1E1E</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3B3B3</color>
+    <color name="text_tertiary">#808080</color>
+    
+    <!-- Divider & Border -->
+    <color name="divider">#2A2A2A</color>
+    <color name="border_subtle">#333333</color>
+    
+    <!-- Status Colors -->
+    <color name="error_red">#CF6679</color>
+    
+    <!-- System Colors -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

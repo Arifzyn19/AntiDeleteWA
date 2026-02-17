@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Anti Delete WA</string>
+    
+    <!-- Main Activity -->
+    <string name="title_private_messages">Private Messages</string>
+    <string name="menu_clear_all">Clear All</string>
+    <string name="menu_notification_access">Notification Access</string>
+    
+    <!-- Empty State -->
+    <string name="empty_title">No Messages Yet</string>
+    <string name="empty_description">Messages from WhatsApp notifications will appear here.\n\nMake sure notification access is enabled.</string>
+    
+    <!-- Dialogs -->
+    <string name="dialog_notification_title">Notification Access Required</string>
+    <string name="dialog_notification_message">Aplikasi ini memerlukan akses notifikasi untuk menyimpan pesan WhatsApp.\n\nSilakan aktifkan \'Anti Delete WA\' di pengaturan Notification Access.</string>
+    <string name="dialog_clear_all_title">Clear All Messages</string>
+    <string name="dialog_clear_all_message">Are you sure you want to delete all saved messages?</string>
+    
+    <!-- Buttons -->
+    <string name="button_open_settings">Open Settings</string>
+    <string name="button_later">Later</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_cancel">Cancel</string>
+    
+    <!-- Toast Messages -->
+    <string name="toast_all_deleted">All messages deleted</string>
+    <string name="toast_sender_deleted">Messages from %s deleted</string>
+</resources>

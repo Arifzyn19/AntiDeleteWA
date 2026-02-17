@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Clear All Messages -->
+    <item
+        android:id="@+id/action_clear_all"
+        android:title="Clear All"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="never" />
+
+    <!-- Notification Settings -->
+    <item
+        android:id="@+id/action_notification_settings"
+        android:title="Notification Access"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never" />
+
+</menu>

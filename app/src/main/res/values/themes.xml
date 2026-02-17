@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Theme Custom -->
+    <style name="Theme.AntiDeleteWA" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/primary_green</item>
+        <item name="colorPrimaryVariant">@color/primary_green_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/primary_green_light</item>
+        <item name="colorSecondaryVariant">@color/primary_green</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorSurface">@color/background_card</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/background_dark</item>
+        
+        <!-- Force dark mode -->
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+    
+    <!-- Toolbar Style -->
+    <style name="Widget.AntiDeleteWA.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="titleTextColor">@color/text_primary</item>
+        <item name="android:background">@color/background_dark_secondary</item>
+    </style>
+</resources>
